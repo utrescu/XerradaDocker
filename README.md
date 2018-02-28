@@ -20,6 +20,8 @@ Després de la xerrada farem una estona de networking a la cafeteria Da Vinci, a
 
 - 21:15-Fi **Networking** 
 
+## Xerrada
+
 [Presentació](Docker-developers.pdf)
 
 Els exemples estan explicats amb notebooks de Jupyter Lab, però en cada carpeta també hi ha tot el codi al que fa referència l'exemple i pot ser executat seguint les instruccions
