@@ -6,9 +6,21 @@ services:
          - 4567:4567
         depends_on:
          - db
+        networks:
+         - color-network
+
     db:
         build: ./database
+        networks:
+         - color-network
+
     front:
         build: ./frontend
         depends_on:
          - colorsservice
+        networks:
+         - color-network
+
+networks:
+  color-network:
+    driver: bridge

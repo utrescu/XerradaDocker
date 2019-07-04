@@ -1,26 +1,25 @@
 package net.xaviersala;
+
 import static spark.Spark.*;
 
 import net.xaviersala.db.ColorsDB;
 import net.xaviersala.db.MySQLColorsDB;
 import net.xaviersala.exceptions.ColorsException;
 
-public class App
-{
-	static final ColorsDB servei = new MySQLColorsDB();
+public class App {
+    static final ColorsDB servei = new MySQLColorsDB();
 
-    public static void main( String[] args )
-    {
-    	// Obtenir el color a partir del nom
+    public static void main(String[] args) {
+        // Obtenir el color a partir del nom
         get("/color/:color", (request, response) -> {
-        	String elColor = request.params(":color");
-        	return servei.getColor(elColor);
+            String elColor = request.params(":color");
+            return servei.getColor(elColor);
         }, new JSONTransformer());
 
         // Obtenir el color a partir de l'ID
         get("/numero/:num", (request, response) -> {
-        	String num = request.params(":num");
-        	return servei.getNumero(num);
+            String num = request.params(":num");
+            return servei.getNumero(num);
         }, new JSONTransformer());
 
         // Obtenir en número d'ID màxim
@@ -30,10 +29,26 @@ public class App
 
         // Mostrar l'error quan es produeix una excepció
         exception(ColorsException.class, (exception, request, response) -> {
-            response.status(404);            
+            response.status(404);
             response.body("{\"message\":\"" + exception.getMessage() + "\"}");
-        	return;
+            return;
         });
+
+        options("/*", (request, response) -> {
+
+            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+            }
+
+            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
+
+            return "OK";
+        });
+
         // Capsaleres CORS
         before((request, response) -> {
             response.header("Access-Control-Allow-Origin", "*");
