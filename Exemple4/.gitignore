@@ -1,3 +1,6 @@
 *~
 dependency-reduced-pom.xml
 .ipynb_checkpoints/
+.settings
+.classpath
+target/
