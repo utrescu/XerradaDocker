@@ -8,8 +8,7 @@ RUN npm install
 
 COPY . /app/
 
-ARG env=prod
-RUN npm run build -- --prod --environment $env
+RUN npm run build --prod
 
 
 # Stage 2
